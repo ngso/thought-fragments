@@ -35,7 +35,7 @@ const PostPage = () => {
         <div>{data!.post.body}</div>
       </div>
 
-      {meData?.me && !meLoading ? <NewComment /> : null}
+      {meData?.me && !meLoading ? <NewComment postId={data!.post.id} /> : null}
 
       {data!.post.comments.map((comment) => {
         return (
