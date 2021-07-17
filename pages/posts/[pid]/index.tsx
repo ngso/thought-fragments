@@ -40,6 +40,7 @@ const PostPage = () => {
       {data!.post.comments.map((comment) => {
         return (
           <Comment
+            id={comment!.id}
             key={comment!.id}
             username={comment!.user.username}
             body={comment!.body}
