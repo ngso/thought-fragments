@@ -1,0 +1,8 @@
+mutation NewComment($postId: String!, $body: String!) {
+  newComment(postId: $postId, body: $body) {
+    ...commentFragment
+    user {
+      ...userFragment
+    }
+  }
+}

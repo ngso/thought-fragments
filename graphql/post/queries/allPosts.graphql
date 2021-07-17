@@ -1,0 +1,9 @@
+  
+query AllPosts {
+  allPosts {
+    ...postFragment
+    user {
+      ...userFragment
+    }
+  }
+}

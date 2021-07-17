@@ -6,7 +6,8 @@
     "dev": "nodemon",
     "build": "tsc --project tsconfig.server.json && next build",
     "start": "cross-env NODE_ENV=production node dist/index.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.3.21",
@@ -16,6 +17,7 @@
     "fastify": "^3.19.1",
     "fastify-cookie": "^5.3.1",
     "graphql": "^15.5.1",
+    "immer": "^9.0.5",
     "mercurius": "^8.0.0",
     "nanoid": "^3.1.23",
     "next": "11.0.1",
@@ -25,6 +27,10 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.21.7",
+    "@graphql-codegen/typescript": "1.23.0",
+    "@graphql-codegen/typescript-operations": "1.18.4",
+    "@graphql-codegen/typescript-react-apollo": "2.3.1",
     "@types/node": "^16.3.2",
     "@types/react": "17.0.14",
     "@types/validator": "^13.6.3",

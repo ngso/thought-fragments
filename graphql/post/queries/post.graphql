@@ -1,0 +1,14 @@
+query Post($id: String!) {
+  post(id: $id) {
+    ...postFragment
+    user {
+      ...userFragment
+    }
+    comments {
+      ...commentFragment
+      user {
+      ...userFragment
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+  
+mutation NewPost($title: String!, $body: String!) {
+  newPost(title: $title, body: $body) {
+    ...postFragment
+    user {
+      ...userFragment
+    }
+  }
+}
