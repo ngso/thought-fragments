@@ -19,7 +19,7 @@ const Input: React.FC<Props> = ({ label, id, ...rest }) => {
         </label>
       ) : null}
       <input
-        className="outline-none text-md border border-gray-700 focus:border-blue-700 rounded-md p-2"
+        className="outline-none text-md border border-gray-300 focus:border-blue-700 rounded-md p-2"
         id={id}
         {...rest}
       />

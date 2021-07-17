@@ -20,7 +20,9 @@ const NavBar = () => {
       <>
         {data?.me ? (
           <>
-            <NavItem onClick={() => {}}>Create new post</NavItem>
+            <NavItem onClick={() => router.push('/posts/new')}>
+              Create new post
+            </NavItem>
             <NavItem
               onClick={() => {
                 logout({
