@@ -43,6 +43,7 @@ const NewComment: React.FC<Props> = ({ postId }) => {
         className="border border-gray-200 rounded-md resize-none w-full outline-none p-4 mb-2"
         value={comment}
         onChange={(e) => setComment(e.currentTarget.value)}
+        required
       />
       <button
         onClick={newCommentHandler}

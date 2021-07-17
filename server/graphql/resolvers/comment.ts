@@ -4,6 +4,7 @@ import { getUser } from '../auth/session';
 import { Post } from './post';
 import { User } from './user';
 import { prisma } from '../../lib/prisma';
+import { validate } from '../../utils/validate';
 
 export const Comment = objectType({
   name: 'Comment',
@@ -55,12 +56,16 @@ export const newComment = mutationField('newComment', {
     postId: nonNull(stringArg()),
     body: nonNull(stringArg()),
   },
-  resolve: async (_, { postId, body }, { request }) => {
+  resolve: async (_, args, { request }) => {
     const user = await getUser(request);
 
     if (!user) {
       throw new Error('You are not logged in');
     }
+
+    validate(args);
+
+    const { postId, body } = args;
 
     const newComment = await prisma.comment.create({
       data: {
@@ -75,28 +80,6 @@ export const newComment = mutationField('newComment', {
     });
 
     return newComment;
-  },
-});
-
-export const updateComment = mutationField('updateComment', {
-  type: nonNull(Comment),
-  args: {
-    id: nonNull(stringArg()),
-    body: nonNull(stringArg()),
-  },
-  resolve: async (_, { id, body }, { request }) => {
-    await commentAuth(request, id);
-
-    const comment = await prisma.comment.update({
-      where: {
-        id,
-      },
-      data: {
-        body,
-      },
-    });
-
-    return comment;
   },
 });
 

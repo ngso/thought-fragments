@@ -11,6 +11,7 @@ import { createSession, destroySession, getUser } from '../auth/session';
 import { Comment } from './comment';
 import { Post } from './post';
 import { prisma } from '../../lib/prisma';
+import { validate } from '../../utils/validate';
 
 export const User = objectType({
   name: 'User',
@@ -64,7 +65,11 @@ export const register = mutationField('register', {
     username: nonNull(stringArg()),
     password: nonNull(stringArg()),
   },
-  resolve: async (_, { email, username, password }, { reply }) => {
+  resolve: async (_, args, { reply }) => {
+    validate(args);
+
+    const { email, password, username } = args;
+
     const existingUser = await prisma.user.findFirst({
       where: {
         OR: [{ email }, { username }],
@@ -97,7 +102,11 @@ export const login = mutationField('login', {
     email: nonNull(stringArg()),
     password: nonNull(stringArg()),
   },
-  resolve: async (_, { email, password }, { reply }) => {
+  resolve: async (_, args, { reply }) => {
+    validate(args);
+
+    const { email, password } = args;
+
     const user = await prisma.user.findUnique({
       where: { email },
     });

@@ -12,6 +12,7 @@ import { getUser } from '../auth/session';
 import { Comment } from './comment';
 import { User } from './user';
 import { prisma } from '../../lib/prisma';
+import { validate } from '../../utils/validate';
 
 export const Post = objectType({
   name: 'Post',
@@ -88,12 +89,16 @@ export const newPost = mutationField('newPost', {
     title: nonNull(stringArg()),
     body: nonNull(stringArg()),
   },
-  resolve: async (_, { title, body }, { request }) => {
+  resolve: async (_, args, { request }) => {
     const user = await getUser(request);
 
     if (!user) {
       throw new Error('You are not logged in');
     }
+
+    validate(args);
+
+    const { title, body } = args;
 
     const newPost = await prisma.post.create({
       data: {
