@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import Layout from '../components/Layout';
 import { useApollo } from '../lib/apollo';
 import '../styles/globals.css';
 
@@ -17,7 +18,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         <title>SocialQL</title>
       </Head>
       <ApolloProvider client={client}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ApolloProvider>
     </>
   );
