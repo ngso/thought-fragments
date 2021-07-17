@@ -11,8 +11,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <meta name="description" content="Demo social media application" />
-        <title>SocialQL</title>
+        <meta name="description" content="Minipost application" />
+        <title>Minipost</title>
       </Head>
       <ApolloProvider client={client}>
         <Layout>
