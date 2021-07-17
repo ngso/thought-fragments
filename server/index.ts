@@ -1,7 +1,9 @@
 import fastify from 'fastify';
 import cookie from 'fastify-cookie';
+import mercurius from 'mercurius';
 import next from 'next';
-import { dev } from '../utils/constants';
+import { schema } from './graphql/schema';
+import { dev } from './utils/constants';
 
 const port = parseInt(process.env.PORT || '3000', 10);
 const app = next({ dev });
@@ -14,6 +16,18 @@ const main = async () => {
 
   server.register(cookie, {
     secret: process.env.COOKIE_SECRET!,
+  });
+
+  server.register(mercurius, {
+    schema,
+    context: (request, reply) => {
+      return {
+        request,
+        reply,
+      };
+    },
+    path: '/api/graphql',
+    graphiql: true,
   });
 
   if (dev) {
