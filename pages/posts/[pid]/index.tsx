@@ -1,9 +1,11 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import ActionLink from '../../../components/ActionLink';
 import Comment from '../../../components/Comment';
 import NewComment from '../../../components/NewComment';
 import {
   PostDocument,
+  useDeletePostMutation,
   useMeQuery,
   usePostQuery,
 } from '../../../generated/graphql';
@@ -16,11 +18,17 @@ const PostPage = () => {
 
   const { data, loading } = usePostQuery({ variables: { id: pid as string } });
   const { data: meData, loading: meLoading } = useMeQuery();
+  const [deletePost] = useDeletePostMutation();
 
   if (loading) return <div>loading...</div>;
 
   if (!data?.post) {
     return <div>Post does not exist</div>;
+  }
+
+  let ownPost = false;
+  if (meData?.me?.username === data.post.user.username && !meLoading) {
+    ownPost = true;
   }
 
   return (
@@ -32,6 +40,28 @@ const PostPage = () => {
         <div className="mb-4">
           <p className="font-bold">{data!.post.user.username}</p>
         </div>
+
+        {ownPost && (
+          <div className="mb-4 space-x-2">
+            <ActionLink
+              color="blue"
+              onClick={() => router.push(`/posts/${pid}/edit`)}
+            >
+              Edit
+            </ActionLink>
+
+            <ActionLink
+              color="red"
+              onClick={async () => {
+                await deletePost({ variables: { id: pid as string } });
+                router.push('/');
+              }}
+            >
+              Delete
+            </ActionLink>
+          </div>
+        )}
+
         <div>{data!.post.body}</div>
       </div>
 

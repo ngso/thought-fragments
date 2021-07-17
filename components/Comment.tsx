@@ -4,6 +4,7 @@ import {
   useDeleteCommentMutation,
   useMeQuery,
 } from '../generated/graphql';
+import ActionLink from './ActionLink';
 
 interface Props {
   id: string;
@@ -55,12 +56,9 @@ const Comment: React.FC<Props> = ({ id, username, body }) => {
         <p>{body}</p>
       </div>
       {ownComment && (
-        <span
-          onClick={handleDeleteComment}
-          className="hover:text-red-600 cursor-pointer text-sm"
-        >
+        <ActionLink onClick={handleDeleteComment} color="red">
           Delete
-        </span>
+        </ActionLink>
       )}
     </article>
   );

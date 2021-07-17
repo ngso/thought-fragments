@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDeletePostMutation, useMeQuery } from '../generated/graphql';
+import ActionLink from './ActionLink';
 
 interface Props {
   id: string;
@@ -47,19 +48,15 @@ const PostSnippet: React.FC<Props> = ({ id, title, author }) => {
       </div>
       {ownPost && (
         <div className="flex space-x-4">
-          <span
-            className="hover:text-blue-600 cursor-pointer text-sm"
+          <ActionLink
+            color="blue"
             onClick={() => router.push(`/posts/${id}/edit`)}
           >
             Edit
-          </span>
-
-          <span
-            onClick={handleDeletePost}
-            className="hover:text-red-600 cursor-pointer text-sm"
-          >
+          </ActionLink>
+          <ActionLink color="red" onClick={handleDeletePost}>
             Delete
-          </span>
+          </ActionLink>
         </div>
       )}
     </div>
