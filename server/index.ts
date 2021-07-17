@@ -1,6 +1,10 @@
 import fastify from 'fastify';
 import cookie from 'fastify-cookie';
-import mercurius from 'mercurius';
+import { ApolloServer } from 'apollo-server-fastify';
+import {
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginLandingPageDisabled,
+} from 'apollo-server-core';
 import next from 'next';
 import { schema } from './graphql/schema';
 import { dev } from './utils/constants';
@@ -18,17 +22,24 @@ const main = async () => {
     secret: process.env.COOKIE_SECRET!,
   });
 
-  server.register(mercurius, {
+  const apolloServer = new ApolloServer({
     schema,
-    context: (request, reply) => {
-      return {
-        request,
-        reply,
-      };
-    },
-    path: '/api/graphql',
-    graphiql: true,
+    context: ({ request, reply }) => ({ request, reply }),
+    plugins: [
+      !dev
+        ? ApolloServerPluginLandingPageDisabled()
+        : ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
   });
+
+  await apolloServer.start();
+
+  server.register(
+    apolloServer.createHandler({
+      path: '/api/graphql',
+      cors: false,
+    })
+  );
 
   if (dev) {
     server.get('/_next/*', async (req, reply) => {
