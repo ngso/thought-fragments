@@ -1,38 +1,41 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import Form from '../../components/Form';
-import Input from '../../components/Input';
-import { useNewPostMutation } from '../../generated/graphql';
+import Form from '../../../components/Form';
+import Input from '../../../components/Input';
+import { useUpdatePostMutation } from '../../../generated/graphql';
 
-const NewPost = () => {
+const EditPost = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  const [addNewPost] = useNewPostMutation({
+  const [editPost] = useUpdatePostMutation({
     onError: (err) => console.log(err),
   });
 
   const router = useRouter();
 
-  const newPostHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+  const { pid } = router.query;
+
+  const editPostHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const response = await addNewPost({ variables: { body, title } });
+    const response = await editPost({
+      variables: { body, title, id: pid as string },
+    });
 
     if (response.data) {
-      router.push('/');
+      router.push(`/posts/${pid}`);
     }
   };
 
   return (
-    <Form onSubmit={newPostHandler} title="Add new post" buttonText="Submit">
+    <Form onSubmit={editPostHandler} title="Edit post" buttonText="Submit">
       <Input
         value={title}
         type="text"
         id="title"
         onChange={(e) => setTitle(e.currentTarget.value)}
         placeholder="New title here"
-        required
       />
 
       <textarea
@@ -40,10 +43,9 @@ const NewPost = () => {
         value={body}
         onChange={(e) => setBody(e.currentTarget.value)}
         placeholder="New body here"
-        required
       />
     </Form>
   );
 };
 
-export default NewPost;
+export default EditPost;

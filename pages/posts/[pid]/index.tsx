@@ -1,13 +1,13 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import Comment from '../../components/Comment';
-import NewComment from '../../components/NewComment';
+import Comment from '../../../components/Comment';
+import NewComment from '../../../components/NewComment';
 import {
   PostDocument,
   useMeQuery,
   usePostQuery,
-} from '../../generated/graphql';
-import { initializeApollo } from '../../lib/apollo';
+} from '../../../generated/graphql';
+import { initializeApollo } from '../../../lib/apollo';
 
 const PostPage = () => {
   const router = useRouter();
