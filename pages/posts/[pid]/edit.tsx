@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Form from '../../../components/Form';
 import Input from '../../../components/Input';
-import { useUpdatePostMutation } from '../../../generated/graphql';
+import { useMeQuery, useUpdatePostMutation } from '../../../generated/graphql';
 
 const EditPost = () => {
   const [title, setTitle] = useState('');
@@ -15,6 +15,14 @@ const EditPost = () => {
   const router = useRouter();
 
   const { pid } = router.query;
+
+  const { data, loading } = useMeQuery();
+
+  if (loading) return <div>loading...</div>;
+
+  if (!data?.me) {
+    router.replace(`/posts/${pid}`);
+  }
 
   const editPostHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Form from '../components/Form';
 import Input from '../components/Input';
-import { MeDocument, MeQuery, useLoginMutation } from '../generated/graphql';
+import {
+  MeDocument,
+  MeQuery,
+  useLoginMutation,
+  useMeQuery,
+} from '../generated/graphql';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +16,14 @@ const Login = () => {
   const router = useRouter();
 
   const [login, { error }] = useLoginMutation({ onError: () => {} });
+
+  const { data, loading } = useMeQuery();
+
+  if (loading) return <div>loading...</div>;
+
+  if (data?.me) {
+    router.replace('/');
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
