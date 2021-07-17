@@ -16,7 +16,7 @@ import { prisma } from '../../lib/prisma';
 export const Post = objectType({
   name: 'Post',
   definition(t) {
-    t.nonNull.string('id');
+    t.nonNull.id('id');
     t.nonNull.string('title');
     t.nonNull.string('body');
     t.nonNull.field('user', {

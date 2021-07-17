@@ -4,7 +4,7 @@
 
 type Comment {
   body: String!
-  id: String!
+  id: ID!
   post: Post!
   user: User!
 }
@@ -24,7 +24,7 @@ type Mutation {
 type Post {
   body: String!
   comments: [Comment]!
-  id: String!
+  id: ID!
   title: String!
   user: User!
 }
@@ -38,7 +38,7 @@ type Query {
 type User {
   comments: [Comment]!
   email: String!
-  id: String!
+  id: ID!
   posts: [Post]!
   username: String!
 }

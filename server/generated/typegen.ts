@@ -30,18 +30,18 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Comment: { // root type
     body: string; // String!
-    id: string; // String!
+    id: string; // ID!
   }
   Mutation: {};
   Post: { // root type
     body: string; // String!
-    id: string; // String!
+    id: string; // ID!
     title: string; // String!
   }
   Query: {};
   User: { // root type
     email: string; // String!
-    id: string; // String!
+    id: string; // ID!
     username: string; // String!
   }
 }
@@ -59,7 +59,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Comment: { // field return type
     body: string; // String!
-    id: string; // String!
+    id: string; // ID!
     post: NexusGenRootTypes['Post']; // Post!
     user: NexusGenRootTypes['User']; // User!
   }
@@ -77,7 +77,7 @@ export interface NexusGenFieldTypes {
   Post: { // field return type
     body: string; // String!
     comments: Array<NexusGenRootTypes['Comment'] | null>; // [Comment]!
-    id: string; // String!
+    id: string; // ID!
     title: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
@@ -89,7 +89,7 @@ export interface NexusGenFieldTypes {
   User: { // field return type
     comments: Array<NexusGenRootTypes['Comment'] | null>; // [Comment]!
     email: string; // String!
-    id: string; // String!
+    id: string; // ID!
     posts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     username: string; // String!
   }
@@ -98,7 +98,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Comment: { // field return type name
     body: 'String'
-    id: 'String'
+    id: 'ID'
     post: 'Post'
     user: 'User'
   }
@@ -116,7 +116,7 @@ export interface NexusGenFieldTypeNames {
   Post: { // field return type name
     body: 'String'
     comments: 'Comment'
-    id: 'String'
+    id: 'ID'
     title: 'String'
     user: 'User'
   }
@@ -128,7 +128,7 @@ export interface NexusGenFieldTypeNames {
   User: { // field return type name
     comments: 'Comment'
     email: 'String'
-    id: 'String'
+    id: 'ID'
     posts: 'Post'
     username: 'String'
   }

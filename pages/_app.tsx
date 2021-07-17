@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import { useApollo } from '../lib/apollo';
@@ -11,10 +11,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <meta
-          name="description"
-          content="Demo social media application built with Next.js, Fastify and GraphQL"
-        />
+        <meta name="description" content="Demo social media application" />
         <title>SocialQL</title>
       </Head>
       <ApolloProvider client={client}>

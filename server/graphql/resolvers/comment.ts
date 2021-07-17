@@ -8,7 +8,7 @@ import { prisma } from '../../lib/prisma';
 export const Comment = objectType({
   name: 'Comment',
   definition(t) {
-    t.nonNull.string('id');
+    t.nonNull.id('id');
     t.nonNull.string('body');
     t.nonNull.field('user', {
       type: nonNull(User),
