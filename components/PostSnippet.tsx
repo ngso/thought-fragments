@@ -13,6 +13,7 @@ interface Props {
 const PostSnippet: React.FC<Props> = ({ id, title, author }) => {
   const { data, loading } = useMeQuery();
   const [deletePost] = useDeletePostMutation();
+  const router = useRouter();
 
   if (loading) return <div>loading...</div>;
 
@@ -20,8 +21,6 @@ const PostSnippet: React.FC<Props> = ({ id, title, author }) => {
   if (data?.me?.username === author) {
     ownPost = true;
   }
-
-  const router = useRouter();
 
   const handleDeletePost = async () => {
     await deletePost({
