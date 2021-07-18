@@ -33,6 +33,13 @@ $ cd minipost
 $ yarn # or npm install
 ```
 
+Add a ```.env``` file with the following content:
+
+```
+DATABASE_URL=<your postgres connection string>
+COOKIE_SECRET=<your secret for signing the cookie>
+```
+
 Migrate the database schema
 
 ```shell
