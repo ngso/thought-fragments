@@ -58,7 +58,7 @@ const main = async () => {
   });
 
   const port = process.env.PORT || 3000;
-  await server.listen(port);
+  await server.listen(port, '0.0.0.0');
   console.log(`Listening on port ${port}`);
 };
 
