@@ -9,7 +9,6 @@ import next from 'next';
 import { schema } from './graphql/schema';
 import { dev } from './utils/constants';
 
-const port = parseInt(process.env.PORT || '3000', 10);
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
@@ -58,6 +57,7 @@ const main = async () => {
     reply.sent = true;
   });
 
+  const port = process.env.PORT || 3000;
   await server.listen(port);
   console.log(`Listening on port ${port}`);
 };
